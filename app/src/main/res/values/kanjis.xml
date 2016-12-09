@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <kanji number="1">
+        <string name="kanji">Nitchi</string>
+        <item name="image">@drawable/kanji_1</item>
+    </kanji>
+</resources>
