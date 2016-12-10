@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/number_list_item"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/kanji_list_item"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/hurigana_list_item"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        android:gravity="center_vertical" />
+
+</LinearLayout>
