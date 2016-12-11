@@ -31,7 +31,9 @@
         android:id="@+id/editText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:contentDescription="漢字" />
+        android:contentDescription="漢字"
+        android:selectAllOnFocus="true"
+        android:singleLine="false" />
 
     <ListView
         android:layout_width="match_parent"

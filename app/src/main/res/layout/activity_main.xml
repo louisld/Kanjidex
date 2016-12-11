@@ -52,6 +52,31 @@
                 android:textSize="36sp"
                 android:textColor="@android:color/black"
                 android:text="に\nち" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/my_border"
+            android:paddingTop="0dp"
+            android:paddingLeft="0dp">
+
+            <TextView
+                android:id="@+id/palier1Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/first_grade"
+                android:textSize="22sp"
+                android:textColor="@color/colorAccent"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
         </LinearLayout>
 
     </LinearLayout>

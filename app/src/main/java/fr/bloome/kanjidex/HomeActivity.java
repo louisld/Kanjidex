@@ -2,6 +2,7 @@ package fr.bloome.kanjidex;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
 import android.nfc.Tag;
@@ -9,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
@@ -58,9 +61,40 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        new GetKanjis().execute();
-
+        showKanjis();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_refresh:
+                new GetKanjis().execute();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void showKanjis(){
+        KanjiDAO kDAO = new KanjiDAO(getApplicationContext());
+        kDAO.open();
+        Cursor cursor = kDAO.selectAll();
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                HomeActivity.this,
+                R.layout.list_item, cursor, new String[]{KanjiDAO.NUMBER, KanjiDAO.KANJI, KanjiDAO.HURIGANA}, new int[]{R.id.number_list_item,
+                R.id.kanji_list_item, R.id.hurigana_list_item});
+
+        mList.setAdapter(adapter);
+    }
+
     private class GetKanjis extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -84,6 +118,7 @@ public class HomeActivity extends AppCompatActivity {
             Log.e(TAG, "Response from url: " + jsonStr);
 
             if (jsonStr != null) {
+                kanjisList2.clear();
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
@@ -99,19 +134,14 @@ public class HomeActivity extends AppCompatActivity {
                         String number = c.getString("kanji_number");
 
                         // tmp hash map for single contact
-                        HashMap<String, String> kanji = new HashMap<>();
                         Kanji kanji2 = new Kanji();
 
                         // adding each child node to HashMap key => value
-                        kanji.put("kanji", kanji_kanji);
-                        kanji.put("hurigana", hurigana);
-                        kanji.put("number", number);
                         kanji2.setKanji(kanji_kanji);
                         kanji2.setHurigana(hurigana);
                         kanji2.setNumber(Integer.parseInt(number));
 
                         // adding contact to contact list
-                        kanjisList.add(kanji);
                         kanjisList2.add(kanji2);
                     }
                 } catch (final JSONException e) {
@@ -159,12 +189,12 @@ public class HomeActivity extends AppCompatActivity {
             if(kanjisList2.size() > 0){
                 kDAO.clear();
             }
-            for(Kanji k : kanjisList2){
+            for(Kanji k : kanjisList2) {
                 kDAO.ajouter(k);
                 Log.i(TAG, k.toString());
             }
-            Cursor cursor = kDAO.selectAll();
 
+            Cursor cursor = kDAO.selectAll();
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                     HomeActivity.this,
                     R.layout.list_item, cursor, new String[]{KanjiDAO.NUMBER, KanjiDAO.KANJI, KanjiDAO.HURIGANA}, new int[]{R.id.number_list_item,
