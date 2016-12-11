@@ -2,12 +2,15 @@ package fr.bloome.kanjidex;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -34,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
 
     // URL to get contacts JSON
     private static String url = "http://slyldcorp.esy.es";
+    public final static String NUMBER = "fr.bloome.kanjidex.intent.NUMBER";
 
     ArrayList<HashMap<String, String>> kanjisList;
     ArrayList<Kanji> kanjisList2;
@@ -46,6 +50,14 @@ public class HomeActivity extends AppCompatActivity {
         kanjisList = new ArrayList<>();
         kanjisList2 = new ArrayList<>();
         mList = (ListView) findViewById(R.id.ListView);
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                intent.putExtra(NUMBER, i + 1);
+                startActivity(intent);
+            }
+        });
         new GetKanjis().execute();
 
     }
@@ -146,7 +158,6 @@ public class HomeActivity extends AppCompatActivity {
             kDAO.open();
             if(kanjisList2.size() > 0){
                 kDAO.clear();
-                Log.e(TAG, "\\o/");
             }
             for(Kanji k : kanjisList2){
                 kDAO.ajouter(k);

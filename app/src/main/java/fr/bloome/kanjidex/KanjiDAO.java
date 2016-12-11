@@ -83,4 +83,13 @@ public class KanjiDAO extends DAOBase {
             return null;
         }
     }
+
+    public Kanji select(int number){
+        Log.e("Miaou", String.valueOf(number));
+        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE kanji_id=?", new String[]{String.valueOf(number)});
+        while(c.moveToNext()) {
+            return new Kanji(c.getInt(1), c.getString(3), c.getString(2), c.getInt(4));
+        }
+        return null;
+    }
 }
