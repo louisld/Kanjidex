@@ -33,7 +33,7 @@ public class WordDAO extends DAOBase {
         mDb.insert(this.TABLE_NAME, null, value);
     }
     public void clear(){
-        mDb.execSQL("DELETE FROM kanjis");
+        mDb.execSQL("DELETE FROM words");
     }
 
     public ArrayList<Word> getWordWithGrade(int kanjiNumber, int grade){
