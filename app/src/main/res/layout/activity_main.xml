@@ -63,7 +63,8 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/my_border"
             android:paddingTop="0dp"
-            android:paddingLeft="0dp">
+            android:paddingLeft="0dp"
+            android:id="@+id/gradeOne">
 
             <TextView
                 android:id="@+id/palier1Text"

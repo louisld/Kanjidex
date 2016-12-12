@@ -1,5 +1,7 @@
 package fr.bloome.kanjidex;
 
+import java.util.ArrayList;
+
 import static android.R.attr.lines;
 
 /**
@@ -12,6 +14,7 @@ public class Kanji {
     private String kanji;
     private String hurigana;
     private int lines;
+    private ArrayList<Word> words;
 
     public Kanji(int number, String kanji, String hurigana, int lines){
         super();
@@ -19,6 +22,7 @@ public class Kanji {
         this.kanji = kanji;
         this.hurigana = hurigana;
         this.lines = lines;
+        this.words = new ArrayList<>();
     }
     public Kanji(){
         super();
@@ -26,6 +30,17 @@ public class Kanji {
 
     public String toString(){
         return new String("Number : " + this.number + " - Kanji : " + this.kanji);
+    }
+
+    public void addWord(Word word){
+        this.words.add(word);
+    }
+    public ArrayList<Word> getWords() {
+        return words;
+    }
+
+    public void setWords(ArrayList<Word> words) {
+        this.words = words;
     }
 
     public String getKanji() {

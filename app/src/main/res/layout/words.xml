@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/words_layout">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/words_hurigana"
+            tools:text="ついたち"
+            android:textColor="@color/colorAccent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/words_kanjis"
+            tools:text="一日"
+            android:textSize="30sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="51dp"
+        android:id="@+id/textView4"
+        tools:text="Le premier jour du mois"
+        android:textSize="24sp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal" />
+
+</LinearLayout>

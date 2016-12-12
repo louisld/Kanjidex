@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,5 +41,21 @@ public class MainActivity extends AppCompatActivity {
         }else{
             pNumber.setText("N°\n" + kanji.getNumber() / 100 + "\n" + kanji.getNumber() / 10 % 10 + "\n" + kanji.getNumber() % 10);
         }
+        String huriganaTmp = new String();
+        for(char c : kanji.getHurigana().toCharArray()){
+            huriganaTmp += c + "\n";
+        }
+        pHurigana.setText(huriganaTmp);
+        /*WordDAO wDAO = new WordDAO(getApplicationContext());
+        wDAO.open();
+        ArrayList<Word> words = wDAO.getWordWithGrade(kanji.getNumber(), 1);
+        LinearLayout lLayout = (LinearLayout) findViewById(R.id.gradeOne);
+        for(Word w : words){
+            LinearLayout lTmp = (LinearLayout) findViewById(R.id.words_layout);
+            TextView kanjis = (TextView) findViewById(R.id.words_kanjis);
+            kanjis.setText(w.getKanjis());
+            lLayout.addView(lTmp);
+        }*/
     }
+
 }

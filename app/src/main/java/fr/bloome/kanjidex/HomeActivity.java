@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static android.R.attr.id;
+import static android.provider.UserDictionary.Words.WORD;
 import static fr.bloome.kanjidex.R.id.hurigana_list_item;
 
 public class HomeActivity extends AppCompatActivity {
@@ -42,16 +43,16 @@ public class HomeActivity extends AppCompatActivity {
     private static String url = "http://slyldcorp.esy.es";
     public final static String NUMBER = "fr.bloome.kanjidex.intent.NUMBER";
 
-    ArrayList<HashMap<String, String>> kanjisList;
-    ArrayList<Kanji> kanjisList2;
+    private ArrayList<Kanji> kanjisList2;
+    private ArrayList<Word> wordsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        kanjisList = new ArrayList<>();
         kanjisList2 = new ArrayList<>();
+        wordsList = new ArrayList<>();
         mList = (ListView) findViewById(R.id.ListView);
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,6 +120,7 @@ public class HomeActivity extends AppCompatActivity {
 
             if (jsonStr != null) {
                 kanjisList2.clear();
+                wordsList.clear();
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
@@ -143,7 +145,25 @@ public class HomeActivity extends AppCompatActivity {
 
                         // adding contact to contact list
                         kanjisList2.add(kanji2);
+
                     }
+                    // Getting Json Array node for words
+                    JSONArray words = jsonObj.getJSONArray("words");
+                    for(int i = 0; i < words.length(); i++){
+                        JSONObject c = words.getJSONObject(i);
+
+                        int kanji_number = c.getInt("word_kanji_number");
+                        String word_kanjis = c.getString("word_kanjis");
+                        String word_hurigana = c.getString("word_hurigana");
+                        String traduction = c.getString("word_traduction");
+                        int grade = c.getInt("word_grade");
+
+                        Word word = new Word(kanji_number, word_kanjis, word_hurigana, traduction, grade);
+
+                        //Add word to the list
+                        wordsList.add(word);
+                    }
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -183,15 +203,21 @@ public class HomeActivity extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            Log.e(TAG, String.valueOf(kanjisList2.size()));
             KanjiDAO kDAO = new KanjiDAO(getApplicationContext());
+            WordDAO wDAO = new WordDAO(getApplicationContext());
             kDAO.open();
+            wDAO.open();
             if(kanjisList2.size() > 0){
                 kDAO.clear();
             }
+            if(wordsList.size() > 0){
+                wDAO.clear();
+            }
             for(Kanji k : kanjisList2) {
                 kDAO.ajouter(k);
-                Log.i(TAG, k.toString());
+            }
+            for(Word w : wordsList){
+                wDAO.ajouter(w);
             }
 
             Cursor cursor = kDAO.selectAll();
