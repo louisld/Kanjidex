@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">Kanjidex</string>
     <string name="first_grade">Palier 1</string>
+    <string name="second_grade">Palier 2</string>
+    <string name="third_grade">Palier 3</string>
 </resources>

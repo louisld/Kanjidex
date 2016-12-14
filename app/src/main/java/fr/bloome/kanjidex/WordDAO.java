@@ -45,4 +45,13 @@ public class WordDAO extends DAOBase {
         c.close();
         return words;
     }
+
+    public boolean isGrade(int kanjiNumber, int grade){
+        boolean result;
+        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE word_kanji_number=? AND word_grade=?", new String[]{String.valueOf(kanjiNumber), String.valueOf(grade)});
+        if(c.getCount() != 0)
+            return true;
+        else
+            return false;
+    }
 }

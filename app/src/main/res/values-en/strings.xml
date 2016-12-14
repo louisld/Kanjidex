@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Kanjidex</string>
-    <string name="first_grade">First grade</string>
+    <string name="first_grade">Grade 1</string>
+    <string name="second_grade">Grade 2</string>
+    <string name="third_grade">Grade 3</string>
 </resources>
