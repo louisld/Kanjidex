@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             TextView huriganas = new TextView(this);
             TextView kanjis = new TextView(this);
             TextView huriganas2 = new TextView(this);
-            TextView traduction = new TextView(this);
+            TextView traduction = new TextView(this) ;
 
             kanjis.setText(w.getKanjis());
             kanjis.setTextSize(30.0f);
